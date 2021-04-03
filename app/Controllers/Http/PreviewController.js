@@ -1,10 +1,16 @@
 "use strict";
 
-const { getVehicles } = require("../../Helpers/GetVehicles");
+const { getVehicles } = require("../../Helpers/VehicleService");
 
 class PreviewController {
-  async index() {
-    return await getVehicles();
+  async index({ response }) {
+    const result = await getVehicles();
+
+    if (!result.result) {
+      return response.status(result.status).send(result);
+    }
+
+    return result.data;
   }
 }
 
