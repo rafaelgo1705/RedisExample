@@ -2,6 +2,7 @@ const { connect } = require("./Connection");
 
 async function getVehicles() {
   const configAxios = await connect();
+  
   return configAxios
     .get("vehicles")
     .then((response) => {

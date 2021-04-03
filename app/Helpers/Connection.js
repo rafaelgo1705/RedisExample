@@ -1,8 +1,12 @@
 const Env = use("Env");
 const axios = require("axios");
+const Redis = use("Redis");
 
 async function connect() {
   const url = Env.get("URL_SERVICE");
+
+  const getTokenCache = await Redis.get("token");
+
   const token = await auth(url);
 
   const configAxios = axios.create({
