@@ -4,4 +4,5 @@ const Route = use("Route");
 
 Route.on("/").render("welcome");
 
-Route.get("vehicles", "PreviewController.index");
+Route.get("posts", "PostController.index");
+Route.post("posts", "PostController.store");

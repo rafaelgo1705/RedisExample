@@ -6,7 +6,7 @@ module.exports = {
   connection: Env.get("REDIS_CONNECTION", "local"),
 
   local: {
-    host: "localhost",
+    host: Env.get("REDIS_HOST"),
     port: 6379,
     password: null,
     db: 0,
@@ -16,13 +16,13 @@ module.exports = {
   cluster: {
     clusters: [
       {
-        host: "localhost",
+        host: Env.get("REDIS_HOST"),
         port: 6379,
         password: null,
         db: 0,
       },
       {
-        host: "localhost",
+        host: Env.get("REDIS_HOST"),
         port: 6380,
         password: null,
         db: 0,

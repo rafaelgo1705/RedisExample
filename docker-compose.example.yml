@@ -1,0 +1,25 @@
+version: "3"
+
+networks:
+  workshop:
+    external: true
+
+services:
+  api:
+    build: .
+    image: workshop_redis
+    ports:
+      - "3333:3333"
+    volumes:
+      - .:/app
+    networks:
+      - workshop
+    depends_on:
+      - redis
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - workshop
