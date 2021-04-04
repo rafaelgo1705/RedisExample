@@ -1,31 +1,27 @@
-# Adonis fullstack application
+# Bem-vindos ao exemplo de aplicação com Redis
 
-This is the fullstack boilerplate for AdonisJs, it comes pre-configured with.
-
-1. Bodyparser
-2. Session
-3. Authentication
-4. Web security middleware
-5. CORS
-6. Edge template engine
-7. Lucid ORM
-8. Migrations and seeds
+Agora irei mostrar como você deve fazer para configurar o projeto em sua máquina
 
 ## Setup
 
-Use the adonis command to install the blueprint
+É bem simples, bora lá
+
+Primeiramente, você deve ter o docker instalado em sua máquina (Independente do SO);
+
+Certo, agora é só executar seu docker;
+
+Com o docker em execução você só vai precisar fazer uma copia do arquivo `docker-compose.example.yml`
+
+Agora é só renomear o arquivo que você copiou para `docker-compose.yml`
+
+Com tudo pronto, rode o seguinte comando:
 
 ```bash
-adonis new yardstick
+docker-compose up
 ```
 
-or manually clone the repo and then run `npm install`.
+Pronto, agora é só esperar o docker levantar os containers e desfrutar da sua aplicação :)
 
+## Gostou do projeto?
 
-### Migrations
-
-Run the following command to run startup migrations.
-
-```js
-adonis migration:run
-```
+Caso tenha alguma dúvida ou sugestão não hesite em me contatar! Obrigado!
