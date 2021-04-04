@@ -1,10 +1,14 @@
 "use strict";
 
 const Post = use("App/Models/Post");
+const Redis = use("Redis");
 
 class PostController {
   async index() {
-    return await Post.all();
+    const postsCache = await Redis.get("posts");
+    const posts = JSON.parse(postsCache);
+
+    return posts;
   }
 
   async store({ request }) {

@@ -4,6 +4,9 @@ networks:
   workshop:
     external: true
 
+volumes:
+  postgres_data:
+
 services:
   api:
     build: .
@@ -14,8 +17,11 @@ services:
       - .:/app
     networks:
       - workshop
+    command: adonis serve --dev
     depends_on:
       - redis
+      - migration
+      - postgres
 
   redis:
     image: redis
@@ -23,3 +29,25 @@ services:
       - "6379:6379"
     networks:
       - workshop
+
+  postgres:
+    image: postgres
+    volumes:
+      - "postgres_data:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: postgres
+      POSTGRES_DB: workshop
+    ports:
+      - "5433:5432"
+    networks:
+      - workshop
+
+  migration:
+    build: .
+    image: workshop_redis
+    networks:
+      - workshop
+    command: adonis migration:run
+    depends_on:
+      - postgres
