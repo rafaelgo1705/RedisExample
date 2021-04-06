@@ -17,3 +17,4 @@ database/*.sqlite
 
 # Docker
 docker-compose.yml
+postgres_data
