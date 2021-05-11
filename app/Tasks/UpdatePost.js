@@ -2,7 +2,7 @@
 
 const Task = use("Task");
 
-const { getPosts } = require("../Helpers/PostsHelper");
+const { getPosts } = require("../Services/PostsService");
 
 class UpdatePost extends Task {
   static get schedule() {

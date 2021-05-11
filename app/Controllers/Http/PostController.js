@@ -4,24 +4,61 @@ const Post = use("App/Models/Post");
 const Redis = use("Redis");
 
 class PostController {
-  async index() {
-    const postsCache = await Redis.get("posts");
-    const posts = JSON.parse(postsCache);
+  async index({ response }) {
+    try {
+      const postsCache = await Redis.get("posts");
+      const posts = JSON.parse(postsCache);
 
-    return posts;
+      return posts;
+    } catch (error) {
+      response.status(400).send({ message: error.message });
+    }
   }
 
-  async store({ request }) {
-    const data = request.only(["title", "description", "author"]);
+  async store({ request, response }) {
+    try {
+      const data = request.only(["title", "description", "author"]);
 
-    return await Post.create(data);
+      return await Post.create(data);
+    } catch (error) {
+      response.status(400).send({ message: error.message });
+    }
   }
 
-  async show({ params, request, response }) {}
+  async update({ params, request, response }) {
+    try {
+      const data = request.only(["title", "description", "author"]);
 
-  async update({ params, request, response }) {}
+      const post = await Post.find(params.id);
 
-  async destroy({ params, request, response }) {}
+      if (!post) {
+        throw new Error("Este post não existe!");
+      }
+
+      post.merge(data);
+      await post.save();
+
+      return post;
+    } catch (error) {
+      response.status(400).send({ message: error.message });
+    }
+  }
+
+  async destroy({ params, response }) {
+    try {
+      const post = await Post.find(params.id);
+
+      if (!post) {
+        throw new Error("Este post não existe!");
+      }
+
+      post.delete();
+
+      response.send({ message: "Post deletado!" });
+    } catch (error) {
+      response.status(400).send({ message: error.message });
+    }
+  }
 }
 
 module.exports = PostController;
