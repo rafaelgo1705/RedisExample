@@ -9,6 +9,10 @@ class PostController {
       const postsCache = await Redis.get("posts");
       const posts = JSON.parse(postsCache);
 
+      if (!posts) {
+        return [];
+      }
+
       return posts;
     } catch (error) {
       response.status(400).send({ message: error.message });
