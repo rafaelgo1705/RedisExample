@@ -17,7 +17,6 @@ services:
       - .:/app
     networks:
       - workshop
-    command: adonis serve --dev
     depends_on:
       - redis
       - migration
